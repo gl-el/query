@@ -1,6 +1,6 @@
 import { NewPostData, PostProps } from '@api/common/types';
 
-import { LOCAL_API_BASE } from '../utils/consts';
+import { LOCAL_API_BASE } from '@utils/consts';
 
 async function returnJSON<T extends object>(response: Response) {
     if (!response.ok) {
@@ -14,6 +14,11 @@ async function returnJSON<T extends object>(response: Response) {
 export async function getPosts(page: number) {
     const res = await fetch(`${LOCAL_API_BASE}posts?page=${page}`);
     return returnJSON<PostProps[]>(res);
+}
+
+export async function getPost(id: string) {
+    const res = await fetch(`${LOCAL_API_BASE}post/${id}`);
+    return returnJSON<PostProps>(res);
 }
 
 export async function postPost(data: NewPostData) {

@@ -14,15 +14,15 @@ const nextConfig = {
 };
 
 const config = withPlugins(
-  [
-      withSvgr({
-          svgrOptions: {
-              svgo: false,
-              titleProp: true,
-          },
-      }),
-  ],
-  nextConfig
+    [
+        withSvgr({
+            svgrOptions: {
+                svgo: false,
+                titleProp: true,
+            },
+        }),
+    ],
+    nextConfig
 );
 
 module.exports = (phase, { defaultConfig }) => {

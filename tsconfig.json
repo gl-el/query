@@ -27,7 +27,8 @@
             "@controls/*": ["src/components/controls/*"],
             "@customTypes/*": ["src/types/*"],
             "@context/*": ["src/context/*"],
-            "@api/*": ["src/api/*"]
+            "@api/*": ["src/api/*"],
+            "@utils/*": ["src/utils/*"]
         },
         "incremental": true
     },

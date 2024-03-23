@@ -1,27 +1,23 @@
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 
-import { getPosts } from '@api/index';
+import { getPost } from '@api/index';
 
-export { default } from '@views/IndexPage';
+export { default } from '@views/DetailedPostPage';
 
 interface ServerSideContextProps {
     query: {
-        page?: string;
+        id: string;
     };
 }
 
 export async function getServerSideProps(context: ServerSideContextProps) {
-    let page = 1;
-
-    if (context.query.page) {
-        page = Number(context.query.page);
-    }
+    const postID = context.query.id;
 
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ['posts', page],
-        queryFn: () => getPosts(page),
+        queryKey: ['post', postID],
+        queryFn: () => getPost(postID),
     });
 
     return {
