@@ -1,6 +1,6 @@
 import { NewPostData, PostProps } from '@api/common/types';
 
-import { API_BASE, ITEMS_PER_PAGE } from '../utils/consts';
+import { LOCAL_API_BASE } from '../utils/consts';
 
 async function returnJSON<T extends object>(response: Response) {
     if (!response.ok) {
@@ -12,12 +12,12 @@ async function returnJSON<T extends object>(response: Response) {
 }
 
 export async function getPosts(page: number) {
-    const res = await fetch(`${API_BASE}/posts?_limit=${ITEMS_PER_PAGE}&_page=${page}`);
+    const res = await fetch(`${LOCAL_API_BASE}posts?page=${page}`);
     return returnJSON<PostProps[]>(res);
 }
 
 export async function postPost(data: NewPostData) {
-    const res = await fetch(`${API_BASE}/posts`, {
+    const res = await fetch(`${LOCAL_API_BASE}posts`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
