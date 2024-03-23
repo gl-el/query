@@ -1,6 +1,6 @@
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 
-import { getPost } from '@api/index';
+import { getPostServer } from '@api/server';
 
 export { default } from '@views/DetailedPostPage';
 
@@ -17,7 +17,7 @@ export async function getServerSideProps(context: ServerSideContextProps) {
 
     await queryClient.prefetchQuery({
         queryKey: ['post', postID],
-        queryFn: () => getPost(postID),
+        queryFn: () => getPostServer(postID),
     });
 
     return {
