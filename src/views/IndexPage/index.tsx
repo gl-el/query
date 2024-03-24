@@ -1,16 +1,23 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import { PostProps } from '@api/common/types';
 import { usePosts } from '@api/posts/usePosts';
 
 import Pagination from '@components/Pagination';
 import PostPreview from '@components/PostPreview';
+import { useState } from 'react';
 
-export default function IndexPage() {
-    const router = useRouter();
-    const { query } = router;
-    const { page } = query as { page?: string };
-    const { data, isLoading, isError } = usePosts(page ? Number(page) : 1);
+export default function IndexPage({ initial }: { initial: PostProps[] }) {
+    const [statePage, setStatePage] = useState(1)
+    const { data, isLoading, isError } = usePosts(statePage, initial);
+
+    const handlePageChange = (newPage: number) => {
+        if (statePage - 1 < 0) {
+            return;
+        }
+        setStatePage((state) => state = newPage);
+    }
 
     return (
         <>
@@ -38,7 +45,7 @@ export default function IndexPage() {
                         </li>
                     ))}
                 </ul>
-                <Pagination />
+                <Pagination page={statePage} onChange={handlePageChange} />
             </main>
         </>
     );

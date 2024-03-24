@@ -1,5 +1,3 @@
-import { QueryClient, dehydrate } from '@tanstack/react-query';
-
 import { getPostsServer } from '@api/server';
 
 export { default } from '@views/IndexPage';
@@ -17,14 +15,9 @@ export async function getServerSideProps(context: ServerSideContextProps) {
         page = Number(context.query.page);
     }
 
-    const queryClient = new QueryClient();
-
-    await queryClient.prefetchQuery({
-        queryKey: ['posts', page],
-        queryFn: () => getPostsServer(page),
-    });
+    const data = await getPostsServer(page);
 
     return {
-        props: { dehydratedState: dehydrate(queryClient) },
+        props: { initial: data },
     };
 }

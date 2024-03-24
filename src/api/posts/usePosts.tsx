@@ -3,9 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { PostProps } from '@api/common/types';
 import { getPosts } from '@api/index';
 
-export function usePosts(page: number) {
+export function usePosts(page: number, initial: PostProps[]) {
     return useQuery<PostProps[], Error>({
-        queryKey: ['posts', page],
+        queryKey: ['posts', {page}],
         queryFn: () => getPosts(page),
+        initialData: () => initial,
     });
 }

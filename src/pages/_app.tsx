@@ -7,7 +7,7 @@ const AppContent: FC<AppProps> = ({ Component, pageProps }) => <Component {...pa
 
 function MyApp(props: AppProps) {
     return (
-        <AppProviders dehydratedState={props.pageProps.dehydratedState}>
+        <AppProviders>
             <AppContent {...props} />
         </AppProviders>
     );
